@@ -18,13 +18,13 @@ jobs:
         uses: actions/checkout@v4  # Cette action clone le dépôt pour l'analyse
 
       - name: Set up CodeQL
-        uses: github/codeql-action/setup-codeql@v2  # Installe et configure CodeQL
+        uses: github/codeql-action/setup-codeql@v3  # Installe et configure CodeQL
 
       - name: Initialize CodeQL database
-        uses: github/codeql-action/autobuild@v2  # Cette étape compile le code et génère la base de données CodeQL
+        uses: github/codeql-action/autobuild@v3  # Cette étape compile le code et génère la base de données CodeQL
 
       - name: Perform CodeQL analysis
-        uses: github/codeql-action/analyze@v2  # Effectue l'analyse du code avec CodeQL
+        uses: github/codeql-action/analyze@v3  # Effectue l'analyse du code avec CodeQL
 
       - name: Upload CodeQL results
-        uses: github/codeql-action/upload-artifact@v2  # Télécharge les résultats de l'analyse en tant qu'artifact
+        uses: github/codeql-action/upload-artifact@v3  # Télécharge les résultats de l'analyse en tant qu'artifact
