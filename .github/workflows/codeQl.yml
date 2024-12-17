@@ -90,4 +90,4 @@ jobs:
       uses: github/codeql-action/analyze@v3
 
     - name: Upload CodeQL results
-      uses: github/codeql-action/upload-artifact@v3 
+      uses: github/codeql-action/upload-artifact@v4
