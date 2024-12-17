@@ -1,0 +1,26 @@
+// To clean mvn
+mvn clean
+
+// To clean and install package with run test cases
+mvn clean install
+
+// To clean and install package without run test cases
+mvn clean install -DskipTests
+
+// To run spring boot project with mvn
+mvn spring-boot:run
+
+// To package spring boot project
+mvn clean package spring-boot:repackage
+java -jar target/my.jar
+
+// With linux
+./mvnw spring-boot:run
+
+// Running a SonarQube analysis with Maven
+mvn clean verify sonar:sonar -Dsonar.projectKey=my-app-key -Dsonar.projectName='my-app' -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_087c9c1e1def98cec22697f086fdcbc26877a36a
+
+
+
+
+

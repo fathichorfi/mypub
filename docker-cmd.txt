@@ -1,0 +1,10 @@
+docker info
+docker version
+docker image history my_image
+docker search nginx
+mvn clean package -DskipTests spring-boot:repackage
+docker build -t my-app .
+docker exec -it 65e2 mysql -p
+docker-compose up -d
+docker-compose config # pour valider la configuration du docker-compose file
+docker network connect bridge alpine1

@@ -1,0 +1,33 @@
+version: '3.8'
+
+volumes:
+  mysql_db:
+
+networks:
+ appname:
+
+services:
+ db:
+   image: mysql:latest
+   restart: always  # restart the container in problem
+   ports:
+   - "3306:3306"
+   # container_name: db
+   volumes:
+   - mysql_db:/var/lib/mysql
+   environment:
+    MYSQL_ROOT_PASSWORD: root
+    # MYSQL_DATABASE: myBaseDeDonnees
+    MYSQL_USER: my-app
+    MYSQL_PASSWORD: my-app-$123
+   networks:
+   - appname
+
+ app:
+  image: my-app_i
+  # container_name: app
+  ports:
+  - "8888:9999"
+  command: ["wait-for-it", "db:3306", "", --", "java", "-jar", "my-app.jar"]
+  depends_on:
+  - db
