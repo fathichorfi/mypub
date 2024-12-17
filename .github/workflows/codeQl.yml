@@ -1,38 +1,30 @@
-name: CodeQL Analysis with Report Download
+name: CodeQL Analysis
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main  # ou 'master', selon le nom de votre branche principale
   pull_request:
-    branches: [ main ]
+    branches:
+      - main  # ou 'master', selon le nom de votre branche principale
 
 jobs:
   analyze:
-    name: Analyze code
+    name: Analyze Code with CodeQL
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      actions: read
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-        
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: java     
-          
-      - name: Autobuild
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          
-      - name: Build with Maven
-        run: mvn clean install -DskipTests
+        uses: actions/checkout@v4  # Cette action clone le dépôt pour l'analyse
+
+      - name: Set up CodeQL
+        uses: github/codeql-action/setup-codeql@v2  # Installe et configure CodeQL
+
+      - name: Initialize CodeQL database
+        uses: github/codeql-action/autobuild@v2  # Cette étape compile le code et génère la base de données CodeQL
 
       - name: Perform CodeQL analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v2  # Effectue l'analyse du code avec CodeQL
 
-
-        
+      - name: Upload CodeQL results
+        uses: github/codeql-action/upload-artifact@v2  # Télécharge les résultats de l'analyse en tant qu'artifact
