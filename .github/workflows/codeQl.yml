@@ -35,7 +35,7 @@ jobs:
         run: mvn clean install -DskipTests  # Assurez-vous que Maven est correctement configuré et que le projet peut être construit
 
       - name: Set up CodeQL
-        uses: github/codeql-action/setup-codeql@v2  # Installe et configure CodeQL
+        uses: github/codeql-action/setup-codeql@v3  # Installe et configure CodeQL
 
       - name: Initialize CodeQL database
         run: |
