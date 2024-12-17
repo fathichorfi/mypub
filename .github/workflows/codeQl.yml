@@ -1,30 +1,41 @@
-name: CodeQL Analysis
+name: "CodeQL"
 
 on:
   push:
-    branches:
-      - main  # ou 'master', selon le nom de votre branche principale
+    #branches: [ "main" ]
   pull_request:
-    branches:
-      - main  # ou 'master', selon le nom de votre branche principale
+    branches: [ "main" ]
 
 jobs:
   analyze:
-    name: Analyze Code with CodeQL
+    name: Analyze
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'java' ]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4  # Cette action clone le dépôt pour l'analyse
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Set up CodeQL
-        uses: github/codeql-action/setup-codeql@v3  # Installe et configure CodeQL
+    # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+#        queries: +security-and-quality, ./.github/codeql/custom-queries
+             
+       
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
 
-      - name: Initialize CodeQL database
-        uses: github/codeql-action/autobuild@v3  # Cette étape compile le code et génère la base de données CodeQL
-
-      - name: Perform CodeQL analysis
-        uses: github/codeql-action/analyze@v3  # Effectue l'analyse du code avec CodeQL
-
-      - name: Upload CodeQL results
-        uses: github/codeql-action/upload-artifact@v3  # Télécharge les résultats de l'analyse en tant qu'artifact
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:${{matrix.language}}"
